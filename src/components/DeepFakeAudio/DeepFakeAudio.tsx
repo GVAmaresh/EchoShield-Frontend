@@ -43,67 +43,104 @@ const DeepFakeAudio: React.FC = () => {
       }
       clearInterval(intervalRef.current as NodeJS.Timeout);
     };
-  }, []);
+  }, []);  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setRecordingStatus("stopped")
+    }
+    
+  };
+  
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaStream.current = stream;
       mediaRecorder.current = new MediaRecorder(stream);
+  
       mediaRecorder.current.ondataavailable = (e) => {
         if (e.data.size > 0) {
-          chunks.current.push(e.data);
+          console.log("Data available:", e.data);
+          chunks.current.push(e.data); // Add chunk to array
         }
       };
+  
       mediaRecorder.current.onstop = async () => {
-        const recordedBlob = new Blob(chunks.current, { type: "audio/webm" });
-        setRecordedUrl(URL.createObjectURL(recordedBlob));
-        chunks.current = [];
-        setRecordingStatus("stopped");
+        console.log("Media recorder stopped.");
+        if (chunks.current.length > 0) {
+          const recordedBlob = new Blob(chunks.current, { type: "audio/webm" });
+          setRecordedUrl(URL.createObjectURL(recordedBlob)); // Show the recorded URL for playback
+          console.log("Recorded Blob created:", recordedBlob);
+        }
       };
+  
       mediaRecorder.current.start();
       isRecording.current = true;
       setRecordingStatus("recording");
       startTimer();
-
-      if (!audioContext.current || audioContext.current.state === "closed") {
-        audioContext.current = new (window.AudioContext ||
-          window.webkitAudioContext)();
-      }
-
-      const sourceNode = audioContext.current.createMediaStreamSource(stream);
-      analyserNode.current = audioContext.current.createAnalyser();
-      analyserNode.current.fftSize = 256;
-      sourceNode.connect(analyserNode.current);
-      updateAmplitude();
     } catch (error) {
       console.error("Error accessing microphone:", error);
     }
   };
 
-  const stopRecording = () => {
-    if (mediaRecorder.current && mediaRecorder.current.state === "recording") {
-      mediaRecorder.current.stop();
-      isRecording.current = false;
-    }
-    if (mediaStream.current) {
-      mediaStream.current.getTracks().forEach((track) => track.stop());
-    }
-    if (audioContext.current && audioContext.current.state === "running") {
-      audioContext.current.close().then(() => {
-        console.log("AudioContext closed");
+const stopRecording = () => {
+  if (mediaRecorder.current && mediaRecorder.current.state === "recording") {
+    mediaRecorder.current.stop();
+    isRecording.current = false;
+  }
+  if (mediaStream.current) {
+    mediaStream.current.getTracks().forEach((track) => track.stop());
+  }
+  if (audioContext.current && audioContext.current.state === "running") {
+    audioContext.current.close().then(() => console.log("AudioContext closed"));
+  }
+  setRecordingStatus("stopped");
+  stopTimer();
+};
+
+
+const handleSubmit = async () => {
+  if (selectedFile) {
+    const formData = new FormData();
+    console.log("Selected file found, sending to backend");
+    formData.append("file", selectedFile, selectedFile.name);
+    await sendAudioToBackend(formData);
+    setSelectedFile(null);
+  } else if (chunks.current.length > 0) {
+    console.log("Recorded chunks found, sending to backend");
+    const recordedBlob = new Blob(chunks.current, { type: "audio/webm" });
+    setRecordedUrl(URL.createObjectURL(recordedBlob));
+
+    const formData = new FormData();
+    formData.append("file", recordedBlob, "recording.webm");
+    await sendAudioToBackend(formData);
+    chunks.current = []; // Clear chunks after sending
+  } else {
+    console.error("No recorded data or file selected");
+  }
+};
+
+
+
+  
+  const sendAudioToBackend = async (formData: FormData) => {
+    try {
+      const response = await fetch('http://localhost:8000/upload', {
+        method: 'POST',
+        body: formData,
       });
-    }
-    setRecordingStatus("stopped");
-    stopTimer();
-  };
-  const handleFileSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setRecordedUrl(fileUrl);
-      setRecordingStatus("stopped");
+
+      if (!response.ok) throw new Error('Failed to upload audio');
+
+      console.log('Audio uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading audio:', error);
     }
   };
+
+
   const updateAmplitude = () => {
     const analyser = analyserNode.current;
     if (!analyser) return;
@@ -283,7 +320,7 @@ const DeepFakeAudio: React.FC = () => {
                   boxShadow:
                     activeButton === "send" ? activeShadow : defaultShadow
                 }}
-                onClick={() => handleClick("send")}
+                onClick={() => {handleClick("send"); handleSubmit()}}
               >
                 <IoMdSend size={20} />
               </div>
