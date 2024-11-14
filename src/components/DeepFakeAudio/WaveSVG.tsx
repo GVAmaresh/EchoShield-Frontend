@@ -4,7 +4,7 @@ interface WaveSVGProps {
   amplitude: number;
 }
 
-const WaveSVG: React.FC<WaveSVGProps> = ({ amplitude }) => {
+const WaveSVG = ({ amplitude }:WaveSVGProps) => {
   const [path, setPath] = useState("");
 
   const generateSinWavePath = (time: number) => {
