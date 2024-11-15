@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useAppContext } from "../../App";
-import { sendAudioToBackend } from "../hooks/api";
+import { sendAudioToBackend, SendAudioToBackend22 } from "../hooks/api";
 
 export const useAudioRecorder = (isCreateDeepfake: boolean = false) => {
   const [recordedUrl, setRecordedUrl] = useState<string>("");
@@ -139,7 +139,8 @@ export const useAudioRecorder = (isCreateDeepfake: boolean = false) => {
       const formData = new FormData();
       formData.append("file", recordedBlob, "total_recording.webm");
 
-      await sendAudioToBackend(formData);
+      const a = await SendAudioToBackend22(formData);
+      console.log(a)
       setTotalChunks(ttl_chunks.current);
       ttl_chunks.current = [];
       console.log("It's time to Working");

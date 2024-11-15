@@ -5,7 +5,7 @@ import { TiMediaRecord } from "react-icons/ti";
 import { FaPause } from "react-icons/fa6";
 import { MdOutlineReplay } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
-import { useAudioRecorder } from "../AudioRecorder/AudioRecorder";
+// import {  useAudioRecorder } from "../AudioRecorder/AudioRecorder";
 import { sendAudioToBackend } from "../hooks/api";
 import { useAppContext } from '../../App';
 
@@ -28,6 +28,8 @@ const RecorderControls = ({
 }: RecorderControlsProps) => {
 
   const { totalChunks, setSubmit } = useAppContext();
+  // const { setChange } = useAudioRecorder()
+  const { setActiveContent } = useAppContext(); 
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
 
@@ -52,16 +54,21 @@ const RecorderControls = ({
   };
 
   const onSubmit = () => {
+    
+    
     if (file) {
       const formData = new FormData();
       formData.append("file", file, file.name);
       handleSubmit(formData);
       console.log("File Selected has been submitted")
     } else {
-      // submitChunks();
+      // handleSubmitChunksToBackend();
+      // setChange(true)
+      // handleSubmitChunksToBackend()
       setSubmit(true)
       console.log("Total Chunks has been submitted")
     }
+    // setActiveContent(2)
   };
 
   const defaultShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";

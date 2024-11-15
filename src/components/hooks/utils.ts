@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SendAudioToBackend22 } from "./api";
 export const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
@@ -21,7 +22,7 @@ export const useFileUploader = (sendAudioToBackend: (formData: FormData) => Prom
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile, selectedFile.name);
-      await sendAudioToBackend(formData);
+      await SendAudioToBackend22(formData);
       setSelectedFile(null);
     } else {
       console.error("No file selected");
