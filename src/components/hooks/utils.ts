@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { SendAudioToBackend22 } from "./api";
+import { act, useState } from "react";
+import { SendAudioToBackend22, SendAudioToBackend44 } from "./api";
+import { useAppContext } from "../../App";
 export const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
@@ -12,6 +13,7 @@ export const formatTime = (time: number) => {
 
 export const useFileUploader = (sendAudioToBackend: (formData: FormData) => Promise<void>) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const {inputText, activeContent} = useAppContext()
 
   const handleFileSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -19,13 +21,17 @@ export const useFileUploader = (sendAudioToBackend: (formData: FormData) => Prom
   };
 
   const handleSubmit = async () => {
-    if (selectedFile) {
+    console.log(activeContent, " in handleSubmit")
+    if (selectedFile && activeContent  === 0) {
       const formData = new FormData();
       formData.append("file", selectedFile, selectedFile.name);
       await SendAudioToBackend22(formData);
       setSelectedFile(null);
-    } else {
-      console.error("No file selected");
+    } else if(selectedFile && activeContent ===1){
+      const formData = new FormData();
+      formData.append("file", selectedFile, selectedFile.name);
+      await SendAudioToBackend44(formData, inputText);
+      setSelectedFile(null);
     }
   };
 

@@ -11,10 +11,12 @@ interface AppContextType {
   setOutput: React.Dispatch<React.SetStateAction<IOutput>>;
   activeContent: number;
   setActiveContent: React.Dispatch<React.SetStateAction<number>>;
+  inputText: string;
+  setInputText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface IOutput {
-  audio:File|undefined;
+  audio: File | undefined;
   prediction?: string;
   entropy?: string;
   text?: string;
@@ -34,6 +36,7 @@ const App: React.FC = () => {
   const [totalChunks, setTotalChunks] = useState<Blob[]>([]);
   const [submit, setSubmit] = useState<boolean>(false);
   const [activeContent, setActiveContent] = useState<number>(0);
+  const [inputText, setInputText] = useState<string>("");
   const [output, setOutput] = useState<IOutput>({
     audio: undefined,
     prediction: "",
@@ -47,6 +50,8 @@ const App: React.FC = () => {
         value={{
           totalChunks,
           setTotalChunks,
+          inputText,
+          setInputText,
           activeContent,
           setActiveContent,
           submit,

@@ -8,7 +8,7 @@ export const sendAudioToBackend = async (formData: FormData) => {
       });
   
       if (!response.ok) throw new Error("Failed to upload audio");
-      console.log("Audio uploaded successfully");
+
     } catch (error) {
       console.error("Error uploading audio:", error);
     }
@@ -41,11 +41,10 @@ export const SendAudioToBackend22 = async (formData: FormData): Promise<void> =>
 
   const audioFile = new File([audioBlob], fileName, { type: 'audio/wav' });
 
-  console.log("Audio File:", audioFile);
 
   const prediction = data.prediction === "true";
   const entropy = data.entropy as string;
-  console.log("Runnning OK!! Okay!!!");
+  console.log("Running SendAudioToBackend22");
 
   setOutput({
     audio: audioFile,
@@ -54,8 +53,41 @@ export const SendAudioToBackend22 = async (formData: FormData): Promise<void> =>
     text: "",
   });
 
-  console.log("Runnning OK!! Okay!!! Part 2");
 };
+
+
+export const SendAudioToBackend44 = async (formData: FormData, text: string): Promise<void> => {
+  const { setOutput, setActiveContent } = useAppContext();
+
+  // Append the additional text field to the FormData object
+  formData.append("text", text);
+
+  const response = await fetch("http://localhost:8000/upload_deepfake", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) throw new Error("Failed to upload audio and text");
+
+  const data = await response.json();
+
+  const audioBase64 = data.audio;
+  const fileName = "audioFile.wav"; 
+  const audioBlob = base64ToBlob(audioBase64, 'audio/wav');
+
+  const audioFile = new File([audioBlob], fileName, { type: 'audio/wav' });
+
+  console.log("Running SendAudioToBackend22");
+
+  setOutput({
+    audio: audioFile,
+    prediction: "",
+    entropy: "",
+    text: text, 
+  });
+
+};
+
 
 function base64ToBlob(base64: string, mimeType: string): Blob {
   const byteCharacters = atob(base64);

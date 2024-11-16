@@ -85,7 +85,6 @@ const RecorderTemplate: React.FC = () => {
     }
     if (audioContext.current && audioContext.current.state === "running") {
       audioContext.current.close().then(() => {
-        console.log("AudioContext closed");
       });
     }
     setRecordingStatus("stopped");

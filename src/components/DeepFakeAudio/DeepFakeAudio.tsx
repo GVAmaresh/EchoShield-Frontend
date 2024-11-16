@@ -6,6 +6,7 @@ import Waves from "react-animated-waves";
 import { useAudioRecorder } from "../AudioRecorder/AudioRecorder";
 import { formatTime, useFileUploader } from "../hooks/utils";
 import RecorderControls from "../others/RecorderControls";
+import { useAppContext } from "../../App";
 
 const DeepFakeAudio = () => {
   const [timer, setTimer] = useState<number>(0);
@@ -25,6 +26,7 @@ const DeepFakeAudio = () => {
     setTimer(0);
     startRecording(sendAudioToBackend);
   };
+  const{setInputText} = useAppContext()
   
 
   useEffect(() => {
@@ -90,6 +92,7 @@ const DeepFakeAudio = () => {
           placeholder="Once upon a time, in a quaint village nestled between rolling hills..."
           className="w-5/6"
           multiline
+          onChange={(e)=>{setInputText(e.target.value)}}
         />
       </div>
     </div>

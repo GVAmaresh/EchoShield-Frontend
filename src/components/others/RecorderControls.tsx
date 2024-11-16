@@ -54,21 +54,13 @@ const RecorderControls = ({
   };
 
   const onSubmit = () => {
-    
-    
     if (file) {
       const formData = new FormData();
       formData.append("file", file, file.name);
       handleSubmit(formData);
-      console.log("File Selected has been submitted")
     } else {
-      // handleSubmitChunksToBackend();
-      // setChange(true)
-      // handleSubmitChunksToBackend()
       setSubmit(true)
-      console.log("Total Chunks has been submitted")
     }
-    // setActiveContent(2)
   };
 
   const defaultShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
