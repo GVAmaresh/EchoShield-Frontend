@@ -13,6 +13,8 @@ import { ethers } from "ethers";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { TextField } from "@mui/material";
 import { RiContractFill } from "react-icons/ri";
+import WaveSurfer from "wavesurfer.js";
+import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
 
 interface AudioProps {
   audioSrc: File | undefined;
@@ -291,24 +293,69 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
       );
     }
   };
+  const waveformRef = useRef(null); // For the waveform container
+  const spectrogramRef = useRef(null); // For the spectrogram container
+  const waveSurferRef = useRef(null); // To store WaveSurfer instance
+
+  useEffect(() => {
+    if (!waveformRef.current || !audioUrl) return;
+
+    // Initialize WaveSurfer
+    const waveSurfer = WaveSurfer.create({
+      container: waveformRef.current,
+      waveColor: "rgb(200, 0, 200)",
+      progressColor: "rgb(100, 0, 100)",
+      url: audioUrl,
+      sampleRate: 22050
+    });
+
+    // Initialize Spectrogram plugin
+    waveSurfer.registerPlugin(
+      Spectrogram.create({
+        container: spectrogramRef.current,
+        labels: true,
+        height: 200,
+        splitChannels: true
+      })
+    );
+    waveSurfer.on("interaction", () => {
+      waveSurfer.play();
+      setIsPlaying(true); 
+    });
+
+    waveSurfer.on("finish", () => {
+      setIsPlaying(false); 
+    });
+
+    waveSurfer.once("interaction", () => waveSurfer.play());
+
+    if (!waveSurfer) waveSurferRef.current = waveSurfer;
+
+    // Cleanup on unmount
+    return () => {
+      waveSurfer.destroy();
+    };
+
+  }, [audioUrl]);
+  const humanSentence = getRandomHumanVoiceMessage()
+  const aIGeneratedSentence = getRandomAIGeneratedVoiceMessage()
 
   return (
     <div>
       {audioUrl && (
-        <div>
-          <audio key={audioUrl} ref={audioRef} controls src={audioUrl}>
-            Your browser does not support the audio element.
-          </audio>
-
-          {/* <div className=" cursor-pointer" onClick={uploadToIPFS}>
-            check Button
-          </div>
-          {audioIPFS && <div>{audioIPFS}</div>}
-          <div className="mt-4 cursor-pointer" onClick={writeContract}>
-            after this butoon
-          </div> */}
-          <div className=" flex justify-center gap-4">
+        <div className="">
+          <div className="mx-32">
             <div
+              id="waveform"
+              className=" mb-4"
+              ref={waveformRef}
+              style={{ marginBottom: "20px" }}
+            ></div>
+            <div id="spectrogram" ref={spectrogramRef}></div>
+          </div>
+
+          <div className=" flex justify-center gap-4 mt-4">
+            {/* <div
               className="rounded-full p-4 cursor-pointer"
               onClick={() =>
                 handleClick("play_pause", () => {
@@ -329,8 +376,8 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                   <FaGooglePlay size={20} />
                 </div>
               )}
-            </div>
-            <div className="">
+            </div> */}
+            <div className="mt-6">
               <div
                 className="rounded-full p-4 cursor-pointer"
                 style={{
@@ -355,14 +402,14 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-12">
+          <div className="flex justify-center mt-4">
             <div className="w-fit border-2 border-gray-300 shadow-lg rounded-xl mx-12 px-6 py-4 bg-white">
               {prediction && (
                 <div className="mb-4 text-center">
                   <h3 className="text-lg font-semibold text-gray-700">
                     {entropy !== null && Number(entropy) > 150
-                      ? getRandomHumanVoiceMessage()
-                      : getRandomAIGeneratedVoiceMessage()}
+                      ? humanSentence
+                      : aIGeneratedSentence}
                   </h3>
                 </div>
               )}
