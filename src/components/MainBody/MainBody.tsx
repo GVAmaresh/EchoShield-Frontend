@@ -3,6 +3,7 @@ import DeepfakeDetection from "../DeepFakeDetection/DeepFakeDetection";
 import DeepfakeAudio from "../DeepFakeAudio/DeepFakeAudio";
 import { useAppContext } from "../../App"; // Context import
 import OutputAudio from "../AudioRecorder/Audio";
+import Docs from "../Docs/docs";
 
 interface IOutput {
   audio: File | undefined;
@@ -42,7 +43,7 @@ export default function MainBody() {
     <div>
       <div className="flex justify-center">
         <nav className="flex items-center space-x-4">
-          {activeContent!=2&&["Deepfake Detection", "Deepfake Audio"].map((item, idx) => (
+          {activeContent!=2&&activeContent!=3&&["Deepfake Detection", "Deepfake Audio"].map((item, idx) => (
             <button
               key={idx}
               className={`text-sm md:text-xl ${
@@ -59,6 +60,7 @@ export default function MainBody() {
       <div>
         {activeContent === 0 && <DeepfakeDetection />}
         {activeContent === 1 && <DeepfakeAudio />}
+        {activeContent === 3 && <Docs/>}
         {activeContent === 2 && (
           <OutputAudio
             audioSrc={audioProps.audio} 

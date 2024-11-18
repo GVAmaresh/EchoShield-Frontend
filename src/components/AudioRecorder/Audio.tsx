@@ -11,7 +11,7 @@ import { FaDownload } from "react-icons/fa6";
 import { FaUpload } from "react-icons/fa6";
 import { ethers } from "ethers";
 import { FaRegCheckCircle } from "react-icons/fa";
-import { TextField } from "@mui/material";
+import { Alert, TextField } from "@mui/material";
 import { RiContractFill } from "react-icons/ri";
 import WaveSurfer from "wavesurfer.js";
 import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
@@ -39,6 +39,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const [audioIPFS, setAudioIPFS] = useState<string | null>(null);
   const [tokenURI, setTokenURI] = useState<string | undefined>("");
+  const [alert, setAlert] = useState<string | null>(null);
   const { walletAdd } = useAppContext();
 
   const [metadata, setMetadata] = useState<IMeta>({
@@ -195,6 +196,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
       console.log("Pinata token URI = ", token);
       if (!token) return;
       setTokenURI(token.IpfsHash);
+      alertTimer("Uploaded Token URI To Pinata");
     } catch (err) {
       console.log(err);
     }
@@ -210,6 +212,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
       const upload = await pinata.upload.file(audioSrc);
       console.log("Upload.ipfs = ", upload.IpfsHash);
       setAudioIPFS(upload.IpfsHash);
+      alertTimer("Uploaded Audio To IPFS");
     } catch (err) {
       console.log(err);
     }
@@ -320,11 +323,11 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
     );
     waveSurfer.on("interaction", () => {
       waveSurfer.play();
-      setIsPlaying(true); 
+      setIsPlaying(true);
     });
 
     waveSurfer.on("finish", () => {
-      setIsPlaying(false); 
+      setIsPlaying(false);
     });
 
     waveSurfer.once("interaction", () => waveSurfer.play());
@@ -335,15 +338,26 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
     return () => {
       waveSurfer.destroy();
     };
-
   }, [audioUrl]);
-  const humanSentence = getRandomHumanVoiceMessage()
-  const aIGeneratedSentence = getRandomAIGeneratedVoiceMessage()
+  const humanSentence = getRandomHumanVoiceMessage();
+  const aIGeneratedSentence = getRandomAIGeneratedVoiceMessage();
+
+  const alertTimer = (s: string) => {
+    setAlert(s);
+    setTimeout(() => {
+      setAlert(null);
+    }, 3000);
+  };
 
   return (
     <div>
       {audioUrl && (
         <div className="">
+          <div className="absolute">
+            {alert && (
+              <Alert severity="success">This is a success Alert.</Alert>
+            )}
+          </div>
           <div className="mx-32">
             <div
               id="waveform"
@@ -420,6 +434,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                   </div>
                 )}
               </div>
+              
               {text && (
                 <div className="text-center">
                   <p className="text-gray-700 font-medium">
@@ -443,6 +458,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                     }
                   />
                 </div>
+                
                 <div>
                   <TextField
                     id="outlined-basic"
@@ -495,7 +511,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                     </div>
                   ) : (
                     <div
-                      className="rounded-full p-4 cursor-pointer"
+                      className="rounded-full p-4 cursor-not-allowed"
                       style={{
                         boxShadow: defaultShadow
                       }}
@@ -524,8 +540,37 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                   </div>
                 </div>
               </div>
+              
             </div>
+            
           </div>
+          <div className="text-center mt-4">
+          <div className="mt-2">
+                {audioIPFS && (
+                    <a
+                      href={`https://ipfs.io/ipfs/${audioIPFS}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className=" hover:font-semibold"
+                    >
+                      Audio IPFS: https://ipfs.io/ipfs/{audioIPFS}
+                    </a>
+                  )}
+                </div>
+                <div className="text-md font-normal text-gray-700">
+                  {tokenURI && (
+                    <a
+                      href={`https://ipfs.io/ipfs/${tokenURI}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className=" hover:font-semibold"
+                    >
+                      Token URI: https://ipfs.io/ipfs/{tokenURI}
+                    </a>
+                  )}
+                </div>
+ 
+              </div>
         </div>
       )}
     </div>

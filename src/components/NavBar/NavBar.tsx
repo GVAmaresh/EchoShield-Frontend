@@ -9,7 +9,7 @@ import { useAppContext } from "../../App";
 
 export default function NavBar() {
   const [dark, setDark] = useState<boolean>(false);
-  const {setWalletAdd} = useAppContext()
+  const {setWalletAdd, setActiveContent} = useAppContext()
   const toggleDarkMode = () => {
     setDark(!dark);
   };
@@ -57,7 +57,7 @@ export default function NavBar() {
             <FaWallet className="hidden md:block" size={30} />
             <FaWallet className="block md:hidden" size={20} />
           </div>
-          <div className="">
+          <div className=" cursor-pointer" onClick={()=>{setActiveContent(3)}}>
             <FaQuestionCircle className="hidden md:block" size={30} />
             <FaQuestionCircle className="block md:hidden" size={20} />
           </div>
