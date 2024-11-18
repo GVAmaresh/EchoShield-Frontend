@@ -5,16 +5,15 @@ import { TiMediaRecord } from "react-icons/ti";
 import { FaPause } from "react-icons/fa6";
 import { MdOutlineReplay } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
-// import {  useAudioRecorder } from "../AudioRecorder/AudioRecorder";
-import { sendAudioToBackend } from "../hooks/api";
 import { useAppContext } from '../../App';
+import { submitFile } from "../hooks/utils";
 
 interface RecorderControlsProps {
   recordingStatus: "idle" | "recording" | "playing" | "stopped" | "paused";
   startRecording: () => void;
   stopRecording: () => void;
-  handleFileSelection: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (formData: FormData) => void;
+  // handleFileSelection: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // handleSubmit: (formData: FormData) => void;
   resetRecording: () => void;
 }
 
@@ -22,24 +21,26 @@ const RecorderControls = ({
   recordingStatus,
   startRecording,
   stopRecording,
-  handleFileSelection,
-  handleSubmit,
+  // handleFileSelection,
+  // handleSubmit,
   resetRecording
 }: RecorderControlsProps) => {
 
-  const { totalChunks, setSubmit } = useAppContext();
+  const { setSubmit, inputText, activeContent, setOutput } = useAppContext();
   // const { setChange } = useAudioRecorder()
-  const { setActiveContent } = useAppContext(); 
+  // const { setActiveContent } = useAppContext(); 
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log("New Working 1")
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
+      console.log("New Working 2")
       stopRecording();
     }
-    handleFileSelection(e);
+    // handleFileSelection(e);
   };
 
   const handleReset = () => {
@@ -54,21 +55,16 @@ const RecorderControls = ({
   };
 
   const onSubmit = () => {
-    
-    
+    console.log("Working 0")
     if (file) {
+      console.log("Working 1")
       const formData = new FormData();
       formData.append("file", file, file.name);
-      handleSubmit(formData);
-      console.log("File Selected has been submitted")
+      // handleSubmit(formData);
+      submitFile(formData, inputText, activeContent, setOutput)
     } else {
-      // handleSubmitChunksToBackend();
-      // setChange(true)
-      // handleSubmitChunksToBackend()
       setSubmit(true)
-      console.log("Total Chunks has been submitted")
     }
-    // setActiveContent(2)
   };
 
   const defaultShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
@@ -157,7 +153,6 @@ const RecorderControls = ({
                 boxShadow:
                   activeButton === "send" ? activeShadow : defaultShadow
               }}
-             
               onClick={() => handleClick("send", onSubmit)}
             >
               <IoMdSend size={20} />

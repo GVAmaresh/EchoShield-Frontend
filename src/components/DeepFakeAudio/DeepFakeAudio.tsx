@@ -6,6 +6,7 @@ import Waves from "react-animated-waves";
 import { useAudioRecorder } from "../AudioRecorder/AudioRecorder";
 import { formatTime, useFileUploader } from "../hooks/utils";
 import RecorderControls from "../others/RecorderControls";
+import { useAppContext } from "../../App";
 
 const DeepFakeAudio = () => {
   const [timer, setTimer] = useState<number>(0);
@@ -17,14 +18,15 @@ const DeepFakeAudio = () => {
     stopRecording,
     resetRecording
   } = useAudioRecorder(true);
-  const { selectedFile, handleFileSelection, handleSubmit } =
-    useFileUploader(sendAudioToBackend);
+  // const { selectedFile, handleFileSelection, handleSubmit } =
+  //   useFileUploader();
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const handleStartRecording = () => {
     setTimer(0);
     startRecording(sendAudioToBackend);
   };
+  const{setInputText} = useAppContext()
   
 
   useEffect(() => {
@@ -78,8 +80,8 @@ const DeepFakeAudio = () => {
         recordingStatus={recordingStatus}
         startRecording={handleStartRecording}
         stopRecording={stopRecording}
-        handleFileSelection={handleFileSelection}
-        handleSubmit={handleSubmit}
+        // handleFileSelection={handleFileSelection}
+        // handleSubmit={handleSubmit}
         resetRecording={resetRecording}
       />
 
@@ -90,6 +92,7 @@ const DeepFakeAudio = () => {
           placeholder="Once upon a time, in a quaint village nestled between rolling hills..."
           className="w-5/6"
           multiline
+          onChange={(e)=>{setInputText(e.target.value)}}
         />
       </div>
     </div>

@@ -28,10 +28,9 @@ export default function MainBody() {
       entropy: output.entropy || "",
       text: output.text || ""
     });
-    console.log(output);
-
+    console.log(activeContent)
     if (output.audio) {
-      setActiveContent(2); // After receiving audio, set active content to output audio
+      setActiveContent(2);
     }
   }, [output, setActiveContent]);
 
@@ -43,7 +42,7 @@ export default function MainBody() {
     <div>
       <div className="flex justify-center">
         <nav className="flex items-center space-x-4">
-          {["Deepfake Detection", "Deepfake Audio"].map((item, idx) => (
+          {activeContent!=2&&["Deepfake Detection", "Deepfake Audio"].map((item, idx) => (
             <button
               key={idx}
               className={`text-sm md:text-xl ${

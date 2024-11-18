@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import MainBody from "./components/MainBody/MainBody";
+// import Scene from "./components/AudioRecorder/Wave3d/Scene";
+import Wave32d from "./components/AudioRecorder/Wave3d/wave32d";
+import Visualizer from "./components/AudioRecorder/Wave3d/wave3d";
 
 interface AppContextType {
   totalChunks: Blob[];
@@ -11,10 +14,14 @@ interface AppContextType {
   setOutput: React.Dispatch<React.SetStateAction<IOutput>>;
   activeContent: number;
   setActiveContent: React.Dispatch<React.SetStateAction<number>>;
+  inputText: string;
+  setInputText: React.Dispatch<React.SetStateAction<string>>;
+  walletAdd: string;
+  setWalletAdd: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface IOutput {
-  audio:File|undefined;
+  audio: File | undefined;
   prediction?: string;
   entropy?: string;
   text?: string;
@@ -34,6 +41,8 @@ const App: React.FC = () => {
   const [totalChunks, setTotalChunks] = useState<Blob[]>([]);
   const [submit, setSubmit] = useState<boolean>(false);
   const [activeContent, setActiveContent] = useState<number>(0);
+  const [inputText, setInputText] = useState<string>("");
+  const [walletAdd, setWalletAdd] = useState<string>("");
   const [output, setOutput] = useState<IOutput>({
     audio: undefined,
     prediction: "",
@@ -47,9 +56,13 @@ const App: React.FC = () => {
         value={{
           totalChunks,
           setTotalChunks,
+          inputText,
+          setInputText,
           activeContent,
           setActiveContent,
           submit,
+          walletAdd,
+          setWalletAdd,
           setSubmit,
           output,
           setOutput
@@ -57,6 +70,10 @@ const App: React.FC = () => {
       >
         <NavBar />
         <MainBody />
+        {/* <Scene/> */}
+        {/* <AudioVisualizer/> */}
+        {/* <Wave32d/> */}
+        {/* <Visualizer/> */}
       </AppContext.Provider>
     </div>
   );

@@ -17,7 +17,7 @@ const DeepfakeDetection = () => {
     resetRecording
   } = useAudioRecorder();
   const { selectedFile, handleFileSelection, handleSubmit } =
-    useFileUploader(sendAudioToBackend);
+    useFileUploader();
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const handleStartRecording = () => {
@@ -67,8 +67,8 @@ const DeepfakeDetection = () => {
         recordingStatus={recordingStatus}
         startRecording={handleStartRecording}
         stopRecording={stopRecording}
-        handleFileSelection={handleFileSelection}
-        handleSubmit={handleSubmit}
+        // handleFileSelection={handleFileSelection}
+        // handleSubmit={handleSubmit}
         resetRecording={resetRecording}
       />
 
