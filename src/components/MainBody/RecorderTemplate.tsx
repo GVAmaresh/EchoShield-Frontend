@@ -146,7 +146,7 @@ const RecorderTemplate: React.FC = () => {
 
   return (
     <div className="mt-6" style={{ position: "relative", height: "100vh" }}>
-      <div className="text-center font-bold" style={{ color: "#C0C0C0" }}>
+      <div className="text-center font-bold" style={{ color: "#A9A9A9" }}>
         Sound Recorder
       </div>
       <div

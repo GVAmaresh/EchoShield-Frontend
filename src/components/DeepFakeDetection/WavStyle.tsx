@@ -14,11 +14,11 @@ const Waveform= ({ amplitude }:WaveformProps) => (
       width: "100%",
       height: "60%",
       overflow: "hidden",
-      background:
-        "linear-gradient(to bottom, rgba(18, 119, 176, 0) 0%, rgba(18, 119, 176, 0.4) 40%, rgba(18, 119, 176, 0) 100%)"
+      background: "linear-gradient(to bottom, #fef3e2 0%, #0083cc 40%, #0000ff 100%)"
+
     }}
   >
-    <Wave fill="#84a7a1" mask="url(#mask)" options={{ amplitude }}>
+    <Wave fill="#fcfbfe" mask="url(#mask)" options={{ amplitude }}>
       <defs>
         <linearGradient id="gradient" gradientTransform="rotate(90)">
           <stop offset="0" stopColor="white" />

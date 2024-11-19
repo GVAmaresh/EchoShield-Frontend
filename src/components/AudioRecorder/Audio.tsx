@@ -389,7 +389,7 @@ console.log("Dont handle this one")
   };
 
   return (
-    <div>
+    <div className="h-96">
       {audioUrl && (
         <div className="">
           <div className="absolute ml-4 mt-2 z-40">

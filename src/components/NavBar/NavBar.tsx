@@ -39,13 +39,14 @@ export default function NavBar() {
     <div
       className="px-2 md:px-10 py-4"
       style={{
+        backgroundColor:"#f4d8b8",
         boxShadow:
           "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px"
       }}
     >
       <div className=" flex justify-between">
-        <div className=" text-red-600 text-xl md:text-2xl font-bold">
-          𝖊𝖈𝖍𝖔𝖘𝖍𝖎𝖊𝖑𝖉
+        <div className="  text-2xl md:text-3xl font-bold doto-logo">
+        Echo Shield
         </div>
         <div className="flex justify-evenly gap-4">
           <div
@@ -57,10 +58,10 @@ export default function NavBar() {
             <FaWallet className="hidden md:block" size={30} />
             <FaWallet className="block md:hidden" size={20} />
           </div>
-          <div className=" cursor-pointer" onClick={()=>{setActiveContent(10)}}>
+          {/* <div className=" cursor-pointer" onClick={()=>{setActiveContent(10)}}>
             <FaQuestionCircle className="hidden md:block" size={30} />
             <FaQuestionCircle className="block md:hidden" size={20} />
-          </div>
+          </div> */}
           <div className="" onClick={toggleDarkMode}>
             {/* {dark ? (
               <div className="">

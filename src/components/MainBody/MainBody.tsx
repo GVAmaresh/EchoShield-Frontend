@@ -54,13 +54,13 @@ export default function MainBody() {
   }, [activeContent]);
 
   return (
-    <div style={{backgroundColor:""}}>
+    <div style={{backgroundColor:"#fef3e2"}}>
       <div className="flex justify-center" >
       
         {activeContent!=20 && activeContent!=10 && <div className=" flex gap-9 mt-4">
-        <div className=""><NavComp logo={ <FaHeadphonesSimple size={30}/>} str="Detect Deepfake Voice"/></div>
-        <div className=""><NavComp logo={<BsFillMicFill  size={30}/> } str="Create Deepfake Audio"/></div>
-        <div className=""><NavComp logo={<BsRobot size={30}/> } str="Other Models to Detect Deepfake"/></div>
+        {/* <div className="" ><NavComp logo={ <FaHeadphonesSimple size={30}/>} str="Detect Deepfake Voice"/></div> */}
+        <div className="" onClick={()=>{setActiveContent(1)}}><NavComp logo={<BsFillMicFill  size={30}/> } str="Create Deepfake Audio"/></div>
+        <div className="" onClick={()=>{setActiveContent(2)}}><NavComp logo={<BsRobot size={30}/> } str="Other Models to Detect Deepfake"/></div>
         </div>}
         {/* <nav className="flex items-center space-x-4">
           {activeContent != 20 &&
