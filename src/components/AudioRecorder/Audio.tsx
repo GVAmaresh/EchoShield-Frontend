@@ -15,6 +15,7 @@ import { Alert, TextField } from "@mui/material";
 import { RiContractFill } from "react-icons/ri";
 import WaveSurfer from "wavesurfer.js";
 import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
+import { error } from "console";
 
 interface AudioProps {
   audioSrc: File | undefined;
@@ -40,14 +41,16 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
   const [audioIPFS, setAudioIPFS] = useState<string | null>(null);
   const [tokenURI, setTokenURI] = useState<string | undefined>("");
   const [alert, setAlert] = useState<string | null>(null);
-  const { walletAdd } = useAppContext();
+  const [warning, setWarning] = useState<string | null>(null);
+  const [errorMesage, setErrorMessage] = useState<string | null>(null);
+  const { walletAdd, setWalletAdd } = useAppContext();
 
   const [metadata, setMetadata] = useState<IMeta>({
     name: "",
     description: "",
     audioIpfsUrl: ""
   });
-  const contractAddress = "0x814134Aee9a67eF9b42bFdb386BbeA6796CbAC28";
+  const contractAddress = "0xdE8FB58EDDcDD57156c003800f15dA6004Ea6e58";
 
   useEffect(() => {
     if (audioSrc) {
@@ -162,16 +165,46 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
     setTimeout(() => setActiveButton(null), 200);
   };
 
+  window.addEventListener("unhandledrejection", (event) => {
+    console.warn("Unhandled promise rejection:", event.reason);
+    if (event.reason.isHandled){
+console.log("Dont handle this one")
+      return;
+    }
+    if (event.reason && event.reason.code === 4001) {
+      setErrorMessage("Transaction rejected by the user.");
+      WarningTimer("Transaction Rejected");
+      event.reason.isHandled = true;
+      return;
+    } else {
+      setErrorMessage("An unexpected error occurred.");
+      WarningTimer("An unexpected error occurred.");
+      event.reason.isHandled = true;
+      return;
+  }
+ 
+  });
+
   const writeContract = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-
-    const contract = new ethers.Contract(contractAddress, abi, signer);
-    console.log("Wallet Adress = ", walletAdd);
-    console.log("AudioIPFs = ", audioIPFS);
-    const ts = contract.mintNFT(walletAdd, tokenURI);
-
-    console.log("Transaction = ", ts);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      let add;
+      if(!walletAdd){
+        add = await signer.getAddress()
+        setWalletAdd(add);
+      }
+      const newAdd = walletAdd || add
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      console.log("Wallet Adress = ", newAdd);
+      console.log("AudioIPFs = ", audioIPFS);
+      await contract.mintNFT(newAdd, tokenURI);
+      
+    } catch (err: any) {
+      console.log("Error: ==", err);
+      WarningTimer("Transaction Rejected");
+      err.isHandled = true
+    }
   };
 
   const uploadMetaData = async () => {
@@ -334,7 +367,6 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
 
     if (!waveSurfer) waveSurferRef.current = waveSurfer;
 
-    // Cleanup on unmount
     return () => {
       waveSurfer.destroy();
     };
@@ -349,15 +381,24 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
     }, 3000);
   };
 
+  const WarningTimer = (s: string) => {
+    setWarning(s);
+    setTimeout(() => {
+      setWarning(null);
+    }, 3000);
+  };
+
   return (
     <div>
       {audioUrl && (
         <div className="">
-          <div className="absolute">
-            {alert && (
-              <Alert severity="success">This is a success Alert.</Alert>
-            )}
+          <div className="absolute ml-4 mt-2 z-40">
+            {alert && <Alert severity="success">{alert}</Alert>}
           </div>
+          <div className="absolute ml-4 mt-2 z-40">
+            {warning && <Alert severity="warning">{warning}</Alert>}
+          </div>
+
           <div className="mx-32">
             <div
               id="waveform"
@@ -434,7 +475,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                   </div>
                 )}
               </div>
-              
+
               {text && (
                 <div className="text-center">
                   <p className="text-gray-700 font-medium">
@@ -458,7 +499,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                     }
                   />
                 </div>
-                
+
                 <div>
                   <TextField
                     id="outlined-basic"
@@ -540,37 +581,34 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
                   </div>
                 </div>
               </div>
-              
             </div>
-            
           </div>
           <div className="text-center mt-4">
-          <div className="mt-2">
-                {audioIPFS && (
-                    <a
-                      href={`https://ipfs.io/ipfs/${audioIPFS}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className=" hover:font-semibold"
-                    >
-                      Audio IPFS: https://ipfs.io/ipfs/{audioIPFS}
-                    </a>
-                  )}
-                </div>
-                <div className="text-md font-normal text-gray-700">
-                  {tokenURI && (
-                    <a
-                      href={`https://ipfs.io/ipfs/${tokenURI}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className=" hover:font-semibold"
-                    >
-                      Token URI: https://ipfs.io/ipfs/{tokenURI}
-                    </a>
-                  )}
-                </div>
- 
-              </div>
+            <div className="mt-2">
+              {audioIPFS && (
+                <a
+                  href={`https://ipfs.io/ipfs/${audioIPFS}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className=" hover:font-semibold"
+                >
+                  Audio IPFS: https://ipfs.io/ipfs/{audioIPFS}
+                </a>
+              )}
+            </div>
+            <div className="text-md font-normal text-gray-700">
+              {tokenURI && (
+                <a
+                  href={`https://ipfs.io/ipfs/${tokenURI}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className=" hover:font-semibold"
+                >
+                  Token URI: https://ipfs.io/ipfs/{tokenURI}
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

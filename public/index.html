@@ -24,7 +24,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Echo Shield</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -44,12 +44,16 @@
     // Vertex shader code here
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
-<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/OrbitControls.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.3.0/simplex-noise.min.js"></script>
+  <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.3.0/simplex-noise.min.js"></script>
+  <script>
+    window.addEventListener("unhandledrejection", (event) => {
+      console.warn("Unhandled promise rejection:", event.reason);
 
-  
+    });
+  </script>
+
   <script id="fragmentshader" type="x-shader/x-fragment">
     // Fragment shader code here
   </script>
-  
 </html>

@@ -26,6 +26,7 @@ export default function NavBar() {
         console.log(provider);
         const signer = provider.getSigner()
         const add = await signer.getAddress()
+        console.log("Wallet Connected Address = ", add);
         setWalletAdd(add)
       } catch (error) {
         console.error("Connection error:", error);
@@ -50,19 +51,18 @@ export default function NavBar() {
           <div
             className=""
             onClick={() => {
-              console.log("IIII")
               connectWallet();
             }}
           >
             <FaWallet className="hidden md:block" size={30} />
             <FaWallet className="block md:hidden" size={20} />
           </div>
-          <div className=" cursor-pointer" onClick={()=>{setActiveContent(3)}}>
+          <div className=" cursor-pointer" onClick={()=>{setActiveContent(10)}}>
             <FaQuestionCircle className="hidden md:block" size={30} />
             <FaQuestionCircle className="block md:hidden" size={20} />
           </div>
           <div className="" onClick={toggleDarkMode}>
-            {dark ? (
+            {/* {dark ? (
               <div className="">
                 <MdOutlineDarkMode className="hidden md:block" size={30} />
                 <MdOutlineDarkMode className="block md:hidden" size={20} />
@@ -72,7 +72,7 @@ export default function NavBar() {
                 <MdDarkMode className="hidden md:block" size={30} />
                 <MdDarkMode className="block md:hidden" size={20} />
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
