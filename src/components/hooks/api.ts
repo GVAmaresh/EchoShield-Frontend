@@ -44,7 +44,7 @@ export const SendAudioToBackend22 = async (formData: FormData,  setOutput: React
   const audioFile = new File([audioBlob], fileName, { type: 'audio/wav' });
 
 
-  const prediction = data.prediction === "true";
+  const prediction = data.prediction;
   const entropy = data.entropy as string;
   console.log("Running SendAudioToBackend22");
 

@@ -157,6 +157,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
       setIsPlaying(false);
     }
   };
+  console.log("Check the prediction: ",prediction)
 
   const handleClick = (buttonId: string, action: () => void) => {
     setActiveButton(buttonId);
@@ -301,7 +302,7 @@ console.log("Dont handle this one")
           </div>
         </div>
       );
-    } else if (300 <= entropy && entropy <= 550) {
+    } else if (150 <= entropy && entropy <= 550) {
       return (
         <div className="">
           <div className="">
@@ -462,9 +463,12 @@ console.log("Dont handle this one")
               {prediction && (
                 <div className="mb-4 text-center">
                   <h3 className="text-lg font-semibold text-gray-700">
-                    {entropy !== null && Number(entropy) > 150
+                    {/* {entropy !== null && Number(entropy) > 150
                       ? humanSentence
-                      : aIGeneratedSentence}
+                      : aIGeneratedSentence} */}
+                      {
+                        prediction &&  prediction  === "REAL" ? humanSentence:aIGeneratedSentence
+                      }
                   </h3>
                 </div>
               )}

@@ -46,10 +46,10 @@ export default function MainBody() {
 
   useEffect(() => {
     if (activeContent === 1) {
-      window.location.href = "https://e4ca69141080319122.gradio.live";
+      window.location.href = "https://9d4faef33f68499b69.gradio.live";
     }
     if (activeContent === 2) {
-      window.location.href = "https://a0ceb0a6fede18ccc0.gradio.live";
+      window.location.href = "https://949527814b37778274.gradio.live";
     }
   }, [activeContent]);
 
