@@ -591,7 +591,7 @@ console.log("Dont handle this one")
             <div className="mt-2">
               {audioIPFS && (
                 <a
-                  href={`https://ipfs.io/ipfs/${audioIPFS}`}
+                  href={`https://fuchsia-shivering-sparrow-317.mypinata.cloud/ipfs/${audioIPFS}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className=" hover:font-semibold"
@@ -603,7 +603,7 @@ console.log("Dont handle this one")
             <div className="text-md font-normal text-gray-700">
               {tokenURI && (
                 <a
-                  href={`https://ipfs.io/ipfs/${tokenURI}`}
+                  href={`https://fuchsia-shivering-sparrow-317.mypinata.cloud/ipfs/${tokenURI}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className=" hover:font-semibold"
