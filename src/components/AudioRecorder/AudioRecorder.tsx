@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useAppContext } from "../../App";
-import { sendAudioToBackend, SendAudioToBackend22, SendAudioToBackend44 } from "../hooks/api";
+import {  SendAudioToBackend22, SendAudioToBackend44 } from "../hooks/api";
 
 export const useAudioRecorder = (isCreateDeepfake: boolean = false) => {
   const [recordedUrl, setRecordedUrl] = useState<string>("");

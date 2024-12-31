@@ -1,7 +1,9 @@
 import { useAppContext } from "../../App";
 
 // const api_link = "https://8mpqmpw0-8000.inc1.devtunnels.ms"
-const api_link = "http://localhost:8000"
+const api_link = process.env.REACT_APP_ML_API;
+// const api_link = "http://localhost:8000"
+
 
 export const sendAudioToBackend = async (formData: FormData) => {
     try {
@@ -27,7 +29,6 @@ export interface AudioResponse {
   text?:string
 }
 export const SendAudioToBackend22 = async (formData: FormData,  setOutput: React.Dispatch<React.SetStateAction<any>>): Promise<void> => {
-
   const response = await fetch(`${api_link}/upload_audio`, {
     method: "POST",
     body: formData,
