@@ -31,7 +31,6 @@ export default function MainBody() {
       entropy: output.entropy || "",
       text: output.text || ""
     });
-    console.log(activeContent);
     if (output.audio) {
       setActiveContent(20);
     }
