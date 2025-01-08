@@ -71,6 +71,7 @@
   "devDependencies": {
     "@types/axios": "^0.9.36",
     "@types/dat.gui": "^0.7.13",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
     "@types/three": "^0.170.0",
     "@types/wavesurfer.js": "^6.0.12",
     "autoprefixer": "^10.4.20",
