@@ -1,4 +1,3 @@
-import { useAppContext } from "../../App";
 
 const api_link = process.env.REACT_APP_ML_API;
 

@@ -1,4 +1,4 @@
-import { act, useState } from "react";
+import {  useState } from "react";
 import { SendAudioToBackend22, SendAudioToBackend44 } from "./api";
 import { useAppContext } from "../../App";
 export const formatTime = (time: number) => {

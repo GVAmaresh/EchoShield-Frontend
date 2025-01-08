@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import { sendAudioToBackend } from "../hooks/api";
 import { formatTime } from "../hooks/utils";
 import RecorderControls from "../others/RecorderControls";
@@ -9,15 +9,12 @@ import { useFileUploader } from "../hooks/utils";
 const DeepfakeDetection = () => {
   const [timer, setTimer] = useState<number>(0);
   const {
-    recordedUrl,
     recordingStatus,
     amplitude,
     startRecording,
     stopRecording,
     resetRecording
   } = useAudioRecorder();
-  const { selectedFile, handleFileSelection, handleSubmit } =
-    useFileUploader();
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const handleStartRecording = () => {

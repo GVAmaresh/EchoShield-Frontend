@@ -1,9 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import MainBody from "./components/MainBody/MainBody";
-// import Scene from "./components/AudioRecorder/Wave3d/Scene";
-import Wave32d from "./components/AudioRecorder/Wave3d/wave32d";
-import Visualizer from "./components/AudioRecorder/Wave3d/wave3d";
 
 interface AppContextType {
   totalChunks: Blob[];
@@ -70,10 +67,6 @@ const App: React.FC = () => {
       >
         <NavBar />
         <MainBody />
-        {/* <Scene/> */}
-        {/* <AudioVisualizer/> */}
-        {/* <Wave32d/> */}
-        {/* <Visualizer/> */}
       </AppContext.Provider>
     </div>
   );

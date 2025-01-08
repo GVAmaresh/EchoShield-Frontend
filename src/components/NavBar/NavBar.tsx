@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import { FaQuestionCircle } from "react-icons/fa";
-import { MdDarkMode } from "react-icons/md";
-import { MdOutlineDarkMode } from "react-icons/md";
-import { GiFoxHead } from "react-icons/gi";
+
 import { FaWallet } from "react-icons/fa";
 import { ethers } from "ethers";
 import { useAppContext } from "../../App";
 
 export default function NavBar() {
   const [dark, setDark] = useState<boolean>(false);
-  const {setWalletAdd, setActiveContent} = useAppContext()
+  const {setWalletAdd} = useAppContext()
   const toggleDarkMode = () => {
     setDark(!dark);
   };
@@ -58,22 +55,7 @@ export default function NavBar() {
             <FaWallet className="hidden md:block" size={30} />
             <FaWallet className="block md:hidden" size={20} />
           </div>
-          {/* <div className=" cursor-pointer" onClick={()=>{setActiveContent(10)}}>
-            <FaQuestionCircle className="hidden md:block" size={30} />
-            <FaQuestionCircle className="block md:hidden" size={20} />
-          </div> */}
           <div className="" onClick={toggleDarkMode}>
-            {/* {dark ? (
-              <div className="">
-                <MdOutlineDarkMode className="hidden md:block" size={30} />
-                <MdOutlineDarkMode className="block md:hidden" size={20} />
-              </div>
-            ) : (
-              <div className="">
-                <MdDarkMode className="hidden md:block" size={30} />
-                <MdDarkMode className="block md:hidden" size={20} />
-              </div>
-            )} */}
           </div>
         </div>
       </div>

@@ -1,9 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import Waves from "react-animated-waves";
-import PerlinNoiseShader from "./Wave3d";
-import { FaPause } from "react-icons/fa6";
-import { FaGooglePlay } from "react-icons/fa";
-import { MdFileDownload, MdOutlineReplay } from "react-icons/md";
+import  { useState, useEffect, useRef } from "react";
 import { useAppContext } from "../../App";
 import { pinata } from "../../web3helpers/pinataConfig";
 import { abi } from "../../web3helpers/abi";
@@ -15,7 +10,6 @@ import { Alert, TextField } from "@mui/material";
 import { RiContractFill } from "react-icons/ri";
 import WaveSurfer from "wavesurfer.js";
 import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
-import { error } from "console";
 
 interface AudioProps {
   audioSrc: File | undefined;
