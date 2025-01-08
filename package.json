@@ -21,12 +21,15 @@
     "@types/node": "^16.18.119",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "cidr-js": "^2.3.1",
     "dat.gui": "^0.7.9",
     "dompurify": "^3.2.0",
     "echarts": "^5.5.1",
     "ethers": "^5.7.2",
     "glslify": "^7.1.1",
+    "ip": "^2.0.1",
     "metamask": "^0.0.1-security",
+    "patch-package": "^8.0.0",
     "pinata-web3": "^0.5.2",
     "react": "^18.3.1",
     "react-animated-waves": "^1.0.2",
@@ -45,7 +48,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build --no-warnings",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -75,6 +78,7 @@
     "@types/three": "^0.170.0",
     "@types/wavesurfer.js": "^6.0.12",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14"
   }

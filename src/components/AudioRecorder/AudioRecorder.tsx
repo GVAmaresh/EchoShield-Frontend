@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useAppContext } from "../../App";
+import { sendAudioToBackend, SendAudioToBackend22, SendAudioToBackend44 } from "../hooks/api";
 
 export const useAudioRecorder = (isCreateDeepfake: boolean = false) => {
   const [recordedUrl, setRecordedUrl] = useState<string>("");
@@ -12,8 +13,9 @@ export const useAudioRecorder = (isCreateDeepfake: boolean = false) => {
   const ttl_chunks = useRef<Blob[]>([]);
   const totalMediaRecorder = useRef<MediaRecorder | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
+  const [mergedBlobSize, setMergedBlobSize] = useState<number>(0);
   const analyserNode = useRef<AnalyserNode | null>(null);
-  const {  setTotalChunks, submit, setSubmit, activeContent, inputText } = useAppContext();
+  const { totalChunks, setTotalChunks, submit, setSubmit, activeContent, inputText, setOutput } = useAppContext();
 
   const recordingInterval = useRef<NodeJS.Timeout | null>(null);
   const [amplitude, setAmplitude] = useState<number>(20);
@@ -137,12 +139,14 @@ export const useAudioRecorder = (isCreateDeepfake: boolean = false) => {
         const formData = new FormData();
         formData.append("file", recordedBlob, "total_recording.webm");
   
+        const a = await SendAudioToBackend22(formData, setOutput);
       }else if(activeContent ===1){
         if(inputText){
           const recordedBlob = new Blob(ttl_chunks.current, { type: "audio/webm" });
           const formData = new FormData();
           formData.append("file", recordedBlob, "total_recording.webm");
     
+          const a = await SendAudioToBackend44(formData, inputText, setOutput);
         }else{
           console.error("Input text is required");
         }

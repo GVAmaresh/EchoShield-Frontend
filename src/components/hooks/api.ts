@@ -1,6 +1,6 @@
 
 const api_link = process.env.REACT_APP_ML_API;
-
+console.log(api_link)
 
 
 export const sendAudioToBackend = async (formData: FormData) => {

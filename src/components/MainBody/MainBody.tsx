@@ -4,6 +4,8 @@ import { useAppContext } from "../../App"; // Context import
 import OutputAudio from "../AudioRecorder/Audio";
 import Docs from "../Docs/docs";
 import NavComp from "../others/NavComp";
+import { FaKey } from "react-icons/fa";
+import { FaHeadphonesSimple } from "react-icons/fa6";
 import { BsFillMicFill } from "react-icons/bs";
 import { BsRobot } from "react-icons/bs";
 
@@ -31,14 +33,15 @@ export default function MainBody() {
       entropy: output.entropy || "",
       text: output.text || ""
     });
+    console.log(activeContent);
     if (output.audio) {
       setActiveContent(20);
     }
   }, [output, setActiveContent]);
 
-  // const handleSetActiveContent = (idx: number) => {
-  //   setActiveContent(idx);
-  // };
+  const handleSetActiveContent = (idx: number) => {
+    setActiveContent(idx);
+  };
 
   useEffect(() => {
     if (activeContent === 1) {
@@ -53,7 +56,7 @@ export default function MainBody() {
     <div style={{backgroundColor:"#fef3e2"}}>
       <div className="flex justify-center" >
       
-        {activeContent!==20 && activeContent!==10 && <div className=" flex gap-9 mt-4">
+        {activeContent!=20 && activeContent!=10 && <div className=" flex gap-9 mt-4">
         {/* <div className="" ><NavComp logo={ <FaHeadphonesSimple size={30}/>} str="Detect Deepfake Voice"/></div> */}
         <div className="" onClick={()=>{setActiveContent(1)}}><NavComp logo={<BsFillMicFill  size={30}/> } str="Create Deepfake Audio"/></div>
         <div className="" onClick={()=>{setActiveContent(2)}}><NavComp logo={<BsRobot size={30}/> } str="Other Models to Detect Deepfake"/></div>
