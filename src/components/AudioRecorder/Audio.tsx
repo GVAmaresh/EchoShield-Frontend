@@ -57,7 +57,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
         URL.revokeObjectURL(audioUrl);
       }
     };
-  }, [audioSrc]);
+  }, [audioSrc, audioUrl]);
 
   useEffect(() => {
     if (!audioSrc) return;
@@ -136,7 +136,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
         audioContextRef.current = null;
       }
     };
-  }, [audioUrl]);
+  }, [audioUrl, audioUrl]);
 
   // const playAudio = () => {
   //   if (audioRef.current) {
