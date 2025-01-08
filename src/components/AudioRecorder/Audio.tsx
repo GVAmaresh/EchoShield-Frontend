@@ -112,10 +112,6 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
 
         analyserRef.current.getByteFrequencyData(dataArray);
 
-        const sum = dataArray.reduce((acc, value) => acc + value, 0);
-        const average = sum / dataArray.length;
-
-        // setAmplitude(average);
         requestAnimationFrame(updateAmplitude);
       };
     } catch (error) {
