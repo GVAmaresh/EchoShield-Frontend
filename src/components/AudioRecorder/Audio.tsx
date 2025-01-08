@@ -24,19 +24,19 @@ interface IMeta {
 }
 
 const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
-  const [amplitude, setAmplitude] = useState(0);
+  // const [amplitude, setAmplitude] = useState(0);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const [audioIPFS, setAudioIPFS] = useState<string | null>(null);
   const [tokenURI, setTokenURI] = useState<string | undefined>("");
   const [alert, setAlert] = useState<string | null>(null);
   const [warning, setWarning] = useState<string | null>(null);
-  const [errorMesage, setErrorMessage] = useState<string | null>(null);
+  // const [errorMesage, setErrorMessage] = useState<string | null>(null);
   const { walletAdd, setWalletAdd } = useAppContext();
 
   const [metadata, setMetadata] = useState<IMeta>({
@@ -115,7 +115,7 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
         const sum = dataArray.reduce((acc, value) => acc + value, 0);
         const average = sum / dataArray.length;
 
-        setAmplitude(average);
+        // setAmplitude(average);
         requestAnimationFrame(updateAmplitude);
       };
     } catch (error) {
@@ -138,19 +138,19 @@ const OutputAudio = ({ audioSrc, prediction, entropy, text }: AudioProps) => {
     };
   }, [audioUrl]);
 
-  const playAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
-      setIsPlaying(true);
-    }
-  };
+  // const playAudio = () => {
+  //   if (audioRef.current) {
+  //     audioRef.current.play();
+  //     // setIsPlaying(true);
+  //   }
+  // };
 
-  const pauseAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    }
-  };
+  // const pauseAudio = () => {
+  //   if (audioRef.current) {
+  //     audioRef.current.pause();
+  //     // setIsPlaying(false);
+  //   }
+  // };
   console.log("Check the prediction: ",prediction)
 
   const handleClick = (buttonId: string, action: () => void) => {
@@ -167,12 +167,12 @@ console.log("Dont handle this one")
       return;
     }
     if (event.reason && event.reason.code === 4001) {
-      setErrorMessage("Transaction rejected by the user.");
+      // setErrorMessage("Transaction rejected by the user.");
       WarningTimer("Transaction Rejected");
       event.reason.isHandled = true;
       return;
     } else {
-      setErrorMessage("An unexpected error occurred.");
+      // setErrorMessage("An unexpected error occurred.");
       WarningTimer("An unexpected error occurred.");
       event.reason.isHandled = true;
       return;
@@ -351,11 +351,11 @@ console.log("Dont handle this one")
     );
     waveSurfer.on("interaction", () => {
       waveSurfer.play();
-      setIsPlaying(true);
+      // setIsPlaying(true);
     });
 
     waveSurfer.on("finish", () => {
-      setIsPlaying(false);
+      // setIsPlaying(false);
     });
 
     waveSurfer.once("interaction", () => waveSurfer.play());

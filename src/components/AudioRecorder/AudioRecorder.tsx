@@ -13,7 +13,7 @@ export const useAudioRecorder = (isCreateDeepfake: boolean = false) => {
   const totalMediaRecorder = useRef<MediaRecorder | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
   const analyserNode = useRef<AnalyserNode | null>(null);
-  const {  setTotalChunks, submit, setSubmit, activeContent, inputText, setOutput } = useAppContext();
+  const {  setTotalChunks, submit, setSubmit, activeContent, inputText } = useAppContext();
 
   const recordingInterval = useRef<NodeJS.Timeout | null>(null);
   const [amplitude, setAmplitude] = useState<number>(20);

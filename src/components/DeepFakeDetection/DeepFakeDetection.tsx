@@ -4,7 +4,6 @@ import { formatTime } from "../hooks/utils";
 import RecorderControls from "../others/RecorderControls";
 import Waveform from "./WavStyle";
 import { useAudioRecorder } from "../AudioRecorder/AudioRecorder";
-import { useFileUploader } from "../hooks/utils";
 
 const DeepfakeDetection = () => {
   const [timer, setTimer] = useState<number>(0);
