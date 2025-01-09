@@ -19,23 +19,21 @@ Each part is managed in a separate repository for better organization and mainte
 
 ## Table of Contents
 
-1. [&nbsp;Description](#-description)
-2. [&nbsp;Demo](#-demo)  
-3. [&nbsp;Installation](#-installation)  
-4. [&nbsp;Usage](#-usage)  
-5. [&nbsp;Features](#-features)  
-6. [&nbsp;Documentation](#-documentation)  
-7. [&nbsp;Technologies Used](#-technologies-used)  
-8. [&nbsp;Contributing](#-contributing)  
-9. [&nbsp;Testing](#-testing)  
-10. [&nbsp;Roadmap](#-roadmap)  
-11. [&nbsp;FAQ](#-faq)  
-12. [&nbsp;License](#-license)  
-13. [&nbsp;Acknowledgments](#-acknowledgments)  
-14. [&nbsp;Contact](#-contact)  
-15. [&nbsp;Changelog](#-changelog)  
-16. [&nbsp;References](#-references)
-
+1. [Language Used](#language-used)
+2. [Audio Detection](#audio-detection)
+3. [Deepfake Detection](#deepfake-detection)
+4. [Entropy Calculation](#entropy-calculation)
+5. [Metadata Creation](#metadata-creation)
+6. [IPFS Storage](#ipfs-storage)
+7. [NFT Minting](#nft-minting)
+8. [Immutability & Verification](#immutability--verification)
+9. [Getting Started](#getting-started)
+    1. [Prerequisites](#prerequisites)
+    2. [Using CMD (Command Line)](#using-cmd-command-line)
+    3. [Using Docker](#using-docker)
+10. [Meet the Team](#meet-the-team)
+11. [Benefits](#benefits)
+12. [License](#license)
 ## Demo
 ## Language Used
 
