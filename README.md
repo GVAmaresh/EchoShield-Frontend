@@ -87,7 +87,8 @@ The minted NFT ensures that the audio and its associated data are immutable, ver
 **Prerequisites**
 
 Before getting started, make sure you have the following installed and set up:
-### 1. **Node.js and npm (for Frontend)**
+
+**1. Node.js and npm (for Frontend)**
 - **Node.js**: The JavaScript runtime used to run the frontend server and manage dependencies.
 - **npm**: The Node Package Manager used for installing frontend dependencies.
 
@@ -100,7 +101,7 @@ node -v
 npm -v
 ```
 
-**Git**
+**2. Git**
 
 Ensure that **Git** is installed and that you are logged in to GitHub.
 
@@ -116,7 +117,7 @@ Git Documentation:
 - Git Docs: [git-scm.com/doc](https://git-scm.com/doc)
 
 
-**Docker**
+**3. Docker**
 
 Ensure that Docker is installed on your machine if you plan to use Docker for running the project.
 
@@ -132,7 +133,10 @@ If Docker is not installed, download and install it from the official Docker web
 Docker Documentation:
 - Docker Docs: [docs.docker](https://docs.docker.com/)
 
-**Using CMD (Command Line)**
+---
+**Running the Project**
+
+**1. Using CMD (Command Line)**
 
 First, clone the frontend and backend repositories using the following commands:
 
@@ -147,6 +151,12 @@ cd EchoShield-Frontend
 npm install
 
 ```
+Create a `.env` or `.env.local` file in your project root and add the following:
+```
+REACT_APP_ML_API=http://localhost:8000
+CI=false
+```
+
 Once the installation is complete, you can start the frontend by running:
 
 ```bash
@@ -154,7 +164,7 @@ npm start
 ```
 Now you should be able to access the frontend on [http://localhost:3000](http://localhost:3000)
 
-**Using Docker**
+**2. Using Docker**
 
 First, clone the frontend and backend repositories using the following commands:
 
@@ -168,6 +178,11 @@ To build the Docker images, first navigate into the projectand then build the Do
 cd EchoShield-Frontend
 docker build -t echoshield-frontend .
 
+```
+Create a `.env` or `.env.local` file in your project root and add the following:
+```
+REACT_APP_ML_API=http://localhost:8000
+CI=false
 ```
 After building the images, you can verify that they were created successfully using:
 ```bash
