@@ -31,8 +31,9 @@ Each part is managed in a separate repository for better organization and mainte
 7. [License](#license)
 
 ## Demo
-### Watch the Video
-[![Video Thumbnail](https://img.youtube.com/vi/PC9OfqpwY7M/0.jpg)](https://youtu.be/PC9OfqpwY7M)
+Watch Video Here
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/8i9jTCctU3U/0.jpg)](https://www.youtube.com/watch?v=8i9jTCctU3U)
 ## Technology Used
 
 **Programming & Scripting Languages:**
