@@ -19,23 +19,19 @@ Each part is managed in a separate repository for better organization and mainte
 
 ## Table of Contents
 
-1. [Language Used](#language-used)
-2. [Audio Detection](#audio-detection)
-3. [Deepfake Detection](#deepfake-detection)
-4. [Entropy Calculation](#entropy-calculation)
-5. [Metadata Creation](#metadata-creation)
-6. [IPFS Storage](#ipfs-storage)
-7. [NFT Minting](#nft-minting)
-8. [Immutability & Verification](#immutability--verification)
-9. [Getting Started](#getting-started)
+1. [Demo](#demo)
+2. [Technology Used](#technology-used)
+3. [Description](#description)
+4. [Getting Started](#getting-started)
     1. [Prerequisites](#prerequisites)
     2. [Using CMD (Command Line)](#using-cmd-command-line)
     3. [Using Docker](#using-docker)
-10. [Meet the Team](#meet-the-team)
-11. [Benefits](#benefits)
-12. [License](#license)
+5. [Meet the Team](#meet-the-team)
+6. [Benefits](#benefits)
+7. [License](#license)
+
 ## Demo
-## Language Used
+## Technology Used
 
 **Programming & Scripting Languages:**
 - **Python**: For backend processing, model training, and feature extraction.
