@@ -87,6 +87,18 @@ The minted NFT ensures that the audio and its associated data are immutable, ver
 **Prerequisites**
 
 Before getting started, make sure you have the following installed and set up:
+### 1. **Node.js and npm (for Frontend)**
+- **Node.js**: The JavaScript runtime used to run the frontend server and manage dependencies.
+- **npm**: The Node Package Manager used for installing frontend dependencies.
+
+To install Node.js and npm, follow the instructions on the [official Node.js website](https://nodejs.org/).
+
+After installation, verify by running the following commands in your terminal:
+
+```bash
+node -v
+npm -v
+```
 
 **Git**
 
