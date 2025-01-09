@@ -13,8 +13,8 @@ Each part is managed in a separate repository for better organization and mainte
 
 **Please start with the Backend Repository first, followed by the Frontend Repository**.
 
-- **Backend Repository**: [GitHub Link](your-backend-repository-link)
-- **Frontend Repository**: [GitHub Link](your-frontend-repository-link)
+- **Backend Repository**: [EchoShield-Backend](https://github.com/GVAmaresh/EchoShield-ML)
+- **Frontend Repository**: [EchoShield-Frontend](https://github.com/GVAmaresh/EchoShield-Frontend)
 
 
 ## Table of Contents
@@ -99,9 +99,9 @@ git --version
 
 If Git is not installed, download and install it from the official Git website:
 
-- Download Git: [https://git-scm.com/downloads](https://git-scm.com/downloads)
+- Download Git: [git-scm](https://git-scm.com/downloads)
 Git Documentation:
-- Git Docs: https://git-scm.com/doc[https://git-scm.com/doc](https://git-scm.com/doc)
+- Git Docs: [git-scm.com/doc](https://git-scm.com/doc)
 
 
 **Docker**
@@ -115,10 +115,10 @@ docker --version
 
 If Docker is not installed, download and install it from the official Docker website:
 
-- Download Docker: https://www.docker.com/products/docker-desktop
-[https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+- Download Docker: 
+[www.docker.com/docker-desktop](https://www.docker.com/products/docker-desktop)
 Docker Documentation:
-- Docker Docs: [https://docs.docker.com/](https://docs.docker.com/)
+- Docker Docs: [docs.docker](https://docs.docker.com/)
 
 **Using CMD (Command Line)**
 
@@ -179,6 +179,40 @@ Now you should be able to access the frontend on [http://localhost:3000](http://
 - **Prateek Savanur**: [PrateekSavanur](https://github.com/PrateekSavanur)
 - **Chinmayee G**: [Chi-nm](https://github.com/Chi-nm)
 - **Charu Bohra**: [CharuBohra](https://github.com/CharuBohra)
+
+## Model Information
+
+ **1. wav2vec (Feature Extraction)**
+- **Purpose**:  
+  wav2vec is used for extracting high-level features from audio data. Specifically, we use it to convert raw audio signals into feature representations that can later be used by machine learning models to classify the audio as real or AI-generated.
+  
+- **How It's Applied**:  
+  In this project, wav2vec is utilized to process the audio data before feeding it into the classification model. The extracted features capture the underlying patterns in the audio, helping to identify whether the audio is human or AI-generated.
+
+- **Integration**:  
+  The raw `.wav` files are passed through the wav2vec model, which generates a series of embeddings (features). These embeddings are then used for further analysis and classification.
+
+
+**2. VGG16 (Convolutional Neural Network)**
+- **Purpose**:  
+  VGG16 is a well-known Convolutional Neural Network (CNN) architecture primarily used for image classification. However, in this project, we adapt VGG16 to classify audio features (extracted from wav2vec). By utilizing VGG16’s deep layers, the model can detect high-level patterns in the audio data and classify it effectively.
+
+- **How It's Applied**:  
+  After feature extraction by wav2vec, the processed features are fed into the VGG16 model. VGG16 processes the audio features (which are treated similarly to image data for classification tasks) to determine if the audio is real or fake.
+
+- **Integration**:  
+  The VGG16 architecture is fine-tuned on our audio dataset. The model learns to recognize patterns specific to human and AI-generated audio, helping to improve the accuracy of the classification task.
+
+
+**3. Melody Machine (Audio Analysis)**
+- **Purpose**:  
+  Melody Machine is a model designed to analyze the melody and pitch of audio signals. It focuses on detecting melodic features in the audio that may vary between human and AI-generated speech, thus contributing to distinguishing the authenticity of the audio.
+
+- **How It's Applied**:  
+  This model is applied to assess the pitch, tone, and rhythm of the audio, as AI-generated voices often exhibit certain melodic patterns that differ from human speech. By analyzing these features, Melody Machine helps in the classification of the audio as either human or AI-generated.
+
+- **Integration**:  
+  Melody Machine processes the audio data alongside other feature extraction models. The output of the Melody Machine is used in conjunction with the wav2vec and VGG16 outputs for a more comprehensive classification decision.
 
 ## Benefits
 - Accurate deepfake detection using state-of-the-art models.
