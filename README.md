@@ -7,7 +7,7 @@ EchoShield detects human or AI audio, analyzes deepfakes with wav2vec, Melody Ma
 
 ## Table of Contents
 
-1. [&nbsp;&nbsp;&nbsp;Description](#-description)
+1. [&nbsp;Description](#-description)
 2. [&nbsp;Demo](#-demo)  
 3. [&nbsp;Installation](#-installation)  
 4. [&nbsp;Usage](#-usage)  
